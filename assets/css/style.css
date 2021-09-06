@@ -1,0 +1,23 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+header {
+    text-align: center;
+    background-color: rgb(163, 100, 223);
+    padding: 20px 20px;
+}
+
+.card-header {
+    background-color: rgb(163, 100, 223);
+}
+
+.daily-forecast {
+    border: solid black 1px;
+}
+
+.sub-titles {
+    font-size: 18px;
+
+}

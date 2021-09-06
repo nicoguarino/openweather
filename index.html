@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+  />
+  <link
+    rel="stylesheet"
+    href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+    crossorigin="anonymous"
+  />
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css" />
+
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <title>Weather Outlook</title>
+</head>
+<body>
+    <header>
+        <h1>WEATHER DASHBOARD</h1>
+    </header>
+    <main class=" container flex-row justify-space-between">
+
+        <div class="row">
+            <div class="col-3">
+
+                <div class="card">
+                    <!--Search Bar-->
+                    <h3 class="card-header text-uppercase sub-titles">Search By City</h3>
+    
+                    <form class="card-body" id="search-bar" type="text" autofocus="true">
+                        
+                        <label for="city-search" class="form-label"></label>
+                        
+                        <input type="text" name="city-search" id="city-search" autofocus="true" class="form-input">
+    
+                        <button type="submit" class="search-btn">Search</button>
+                    </form>
+                </div>
+            </div>
+
+            <!--Daily Forecast-->
+            <div class=" col-9 daily-forecast">
+                <h2 class="forecast-city sub-titles"></h2>
+            </div>
+        </div>
+
+        <div class="container">
+
+            <div class="row">
+                <!--Search History-->
+                <div class="col-3">
+                    <h3 class="sub-titles">Search History:</h3>
+                </div>
+
+                <!--Weekly Forcast-->
+                <div class=" col-9 list-days" id="repos-container" >
+                    <h3 class="sub-titles">5 Day Forecast:</h3>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="./assets/javascript/script.js"></script>
+    <script src="./assets/javascript/script.js"></script>
+</body>
+</html>
