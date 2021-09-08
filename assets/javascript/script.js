@@ -1,14 +1,3 @@
-
-// current and future conditions for that city and it is saved to local storage as history
-
-// When Searched presented with city name, date, icon, temp, humity, wind speed, uv index
-
-// uv index presents conditions that show favorable, moderate, or severe
-
-// display 5 day weather forecast that shows same displays as daily forecast
-
-// when clicking on past history they are presented with current and future conditions for click city
-
 var userSearchEl = document.querySelector("#city-search");
 var searchBarEl = document.querySelector("#search-bar");
 var cityTitleEl = document.querySelector('#forecast-city');
@@ -21,10 +10,12 @@ var CitySubmitHandler = function(event) {
     var InputEl = userSearchEl.value.trim(); 
 
     if (InputEl) {
-        
-       // getWeather(InputEl);
-
+       
         saveCityEl(InputEl);
+        
+        getWeather(InputEl);
+
+
 
       // userSearchEl.value = "";
 
@@ -32,6 +23,12 @@ var CitySubmitHandler = function(event) {
         alert("City searched is not found.");
     }
 }
+
+// When Searched presented with city name, date, icon, temp, humity, wind speed, uv index
+
+// uv index presents conditions that show favorable, moderate, or severe
+
+// display 5 day weather forecast that shows same displays as daily forecast
 
 // needs to use different api. This one does have uv or future forcast
 var getWeather = function (search) {
@@ -69,16 +66,18 @@ var displayWeather = function(weatherData, cityNameEl) {
 
 // can't get inputEl to save to storageArray
 var saveCityEl = function (InputEl) {
-    var storageArray = [];
-    window.localStorage.setItem('searchedCityEl', JSON.stringify(storageArray));
+    var storageArray = [InputEl];
+    window.localStorage.setItem('searchedCityEl', JSON.stringify(storageArray.value));
 
     storageArray = JSON.parse(window.localStorage.getItem('savedCity'));
-    $('.search-history').html('');
+    // $('.search-history').html('');
 
     for (let i = 0; i <= storageArray.length; i++) {
         $('.search-history').append("<button>" + storageArray[i] + "</button>");
         
+        return storageArray[i];
     }
 };
 
+// when clicking on past history they are presented with current and future conditions for click city
 searchBarEl.addEventListener("submit", CitySubmitHandler);
