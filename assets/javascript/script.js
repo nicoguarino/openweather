@@ -1,4 +1,3 @@
-// Search for a city on input and click on search-btn
 
 // current and future conditions for that city and it is saved to local storage as history
 
@@ -23,15 +22,18 @@ var CitySubmitHandler = function(event) {
 
     if (InputEl) {
         
-        getWeather(InputEl);
+       // getWeather(InputEl);
 
-      //  userSearchEl.value = "";
+        saveCityEl(InputEl);
+
+      // userSearchEl.value = "";
 
     } else {
         alert("City searched is not found.");
     }
 }
 
+// needs to use different api. This one does have uv or future forcast
 var getWeather = function (search) {
     // format the api url
     var weatherApi = "https://api.openweathermap.org/data/2.5/weather?q=" 
@@ -51,6 +53,7 @@ var getWeather = function (search) {
         });
 };
 
+// trying to pull api content and display
 var displayWeather = function(weatherData, cityNameEl) {
 
     cityTitleEl.textcontent = cityNameEl;
@@ -62,6 +65,20 @@ var displayWeather = function(weatherData, cityNameEl) {
     }
 
 
+};
+
+// can't get inputEl to save to storageArray
+var saveCityEl = function (InputEl) {
+    var storageArray = [];
+    window.localStorage.setItem('searchedCityEl', JSON.stringify(storageArray));
+
+    storageArray = JSON.parse(window.localStorage.getItem('savedCity'));
+    $('.search-history').html('');
+
+    for (let i = 0; i <= storageArray.length; i++) {
+        $('.search-history').append("<button>" + storageArray[i] + "</button>");
+        
+    }
 };
 
 searchBarEl.addEventListener("submit", CitySubmitHandler);
