@@ -50,7 +50,7 @@ var getWeather = function (search) {
         .then(function(data) {
 
             // displaying city Searched
-            cityTitleEl.textContent = data.name;
+            cityTitleEl.textContent = data.name + ": " + moment().format("L");
 
             // pushing name to array in local storage
             searchedCities.push(data.name);
@@ -83,37 +83,49 @@ var displayWeather = function (data) {
     var dailyHumidity = document.createElement('p');
     var uvIndex = document.createElement('p');
 
-    cityTitleEl.textContent = data.current.weather[0].icon;
+    var dailyContainer = document.querySelector("#daily-container");
+    var dailyForcastData = document.createElement("div");
+    dailyForcastData.classList = "";
+    dailyContainer.appendChild(dailyForcastData);
+
+   // cityTitleEl.textContent = data.current.weather[0].icon;
 
     dailytemp.textContent = "Temp: " + data.current.temp + "°F";
-    cityTitleEl.appendChild(dailytemp);
+    dailyForcastData.appendChild(dailytemp);
 
     windSpeed.textContent = "Wind Speed: " + data.current.wind_speed;
-    cityTitleEl.appendChild(windSpeed);
+    dailyForcastData.appendChild(windSpeed);
 
     dailyHumidity.textContent = "Humidity: " + data.current.humidity;
-    cityTitleEl.appendChild(dailyHumidity);
+    dailyForcastData.appendChild(dailyHumidity);
 
     uvIndex.textContent = "UV Index: " + data.current.uvi;
-    cityTitleEl.appendChild(uvIndex);
+    dailyForcastData.appendChild(uvIndex);
 
-    for (let i = 0; i < data.daily.length; i++) {
-        var futuredays = document.querySelector('#weekly-card');
+    for (let i = 1; i < 5; i++) {
+        var weeklyContainer = document.querySelector("#display-week");
+
+        var futureDayContainer = document.createElement("div");
+        futureDayContainer.classList = "col-3 weekly-card";
+        weeklyContainer.appendChild(futureDayContainer);
+
+        var futuredateEl = document.createElement('P');
         var futureDayTemp = document.createElement('p');
         var futureDayWindSpeed = document.createElement('p');
         var futureDayHumidity = document.createElement('p');
 
+        futuredateEl.textContent = moment.unix(data.daily[i].dt).format("L");
+        futureDayContainer.appendChild(futuredateEl);
+
         futureDayTemp.textContent = "Temp: " + data.daily[i].temp.day  + "°F";
-        futuredays.appendChild(futureDayTemp);
+        futureDayContainer.appendChild(futureDayTemp);
 
         futureDayWindSpeed.textContent = "Wind Speed: " + data.daily[i].humidity;
-        futuredays.appendChild(futureDayWindSpeed);
+        futureDayContainer.appendChild(futureDayWindSpeed);
 
         futureDayHumidity.textContent = "Humidity: " + data.daily[i].wind_speed;
-        futuredays.appendChild(futureDayHumidity);
+        futureDayContainer.appendChild(futureDayHumidity);
 
-
-        
     }
 
 
