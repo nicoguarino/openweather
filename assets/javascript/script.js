@@ -114,7 +114,7 @@ var displayWeather = function (data) {
         var futureDayWindSpeed = document.createElement('p');
         var futureDayHumidity = document.createElement('p');
 
-        futuredateEl.textContent = moment.unix(data.daily[i].dt).format("L");
+        futuredateEl.textContent = moment.unix(data.daily[i].dt).format("L[:]");
         futureDayContainer.appendChild(futuredateEl);
 
         futureDayTemp.textContent = "Temp: " + data.daily[i].temp.day  + "°F";
