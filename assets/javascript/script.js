@@ -40,7 +40,7 @@ var getWeather = function (search) {
     // format the api url
     var weatherApi = "https://api.openweathermap.org/data/2.5/weather?q="
         + search +
-        "&appid=d3f5af43f561d831f34569cf6fef321f";
+        "&units=imperial&appid=d3f5af43f561d831f34569cf6fef321f";
 
     fetch(weatherApi)
         .then(function(response) {
@@ -63,7 +63,7 @@ var getWeather = function (search) {
 
             fetch("https://api.openweathermap.org/data/2.5/onecall?lat="
                 + data.coord.lat + "&lon=" + data.coord.lon
-                + "&appid=d3f5af43f561d831f34569cf6fef321f")
+                + "&units=imperial&appid=d3f5af43f561d831f34569cf6fef321f")
                 .then(function (response) {
                     return response.json();
                 })
@@ -83,7 +83,9 @@ var displayWeather = function (data) {
     var dailyHumidity = document.createElement('p');
     var uvIndex = document.createElement('p');
 
-    dailytemp.textContent = "Temp: " + data.current.temp;
+    cityTitleEl.textContent = data.current.weather[0].icon;
+
+    dailytemp.textContent = "Temp: " + data.current.temp + "°F";
     cityTitleEl.appendChild(dailytemp);
 
     windSpeed.textContent = "Wind Speed: " + data.current.wind_speed;
@@ -96,7 +98,21 @@ var displayWeather = function (data) {
     cityTitleEl.appendChild(uvIndex);
 
     for (let i = 0; i < data.daily.length; i++) {
-        
+        var futuredays = document.querySelector('#weekly-card');
+        var futureDayTemp = document.createElement('p');
+        var futureDayWindSpeed = document.createElement('p');
+        var futureDayHumidity = document.createElement('p');
+
+        futureDayTemp.textContent = "Temp: " + data.daily[i].temp.day  + "°F";
+        futuredays.appendChild(futureDayTemp);
+
+        futureDayWindSpeed.textContent = "Wind Speed: " + data.daily[i].humidity;
+        futuredays.appendChild(futureDayWindSpeed);
+
+        futureDayHumidity.textContent = "Humidity: " + data.daily[i].wind_speed;
+        futuredays.appendChild(futureDayHumidity);
+
+
         
     }
 
