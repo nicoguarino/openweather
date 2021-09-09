@@ -8,18 +8,21 @@ var searchedCities = JSON.parse(localStorage.getItem("searchedCities")) || [];
 
 
 // Submit City Function
-var CitySubmitHandler = function (event) {
+function CitySubmitHandler(event) {
     event.preventDefault();
 
     var InputEl = userSearchEl.value.trim();
 
-    if (InputEl) {
+   // if (searchedCities.indexOf(searchedCities) === -1){};
+
+    if (InputEl && searchedCities.indexOf(InputEl) === -1) {
 
         saveCityEl(InputEl);
 
         getWeather(InputEl);
 
         // userSearchEl.value = "";
+        return;
 
     } else {
         alert("City searched is not found.");
@@ -40,20 +43,22 @@ var getWeather = function (search) {
         "&appid=d3f5af43f561d831f34569cf6fef321f";
 
     fetch(weatherApi)
-        .then(function (response) {
+        .then(function(response) {
            return response.json();
 
         })
-        .then(function (data) {
+        .then(function(data) {
 
             // displaying city Searched
             cityTitleEl.textContent = data.name;
 
-            //setting city searched to local storage
-            localStorage.setItem('searchedCityEl', JSON.stringify(data.name));
-
             // pushing name to array in local storage
             searchedCities.push(data.name);
+
+            //setting city searched to local storage
+            localStorage.setItem("searchedCities", JSON.stringify(searchedCities));
+
+
             console.log(searchedCities);
 
             fetch("https://api.openweathermap.org/data/2.5/onecall?lat="
@@ -63,6 +68,7 @@ var getWeather = function (search) {
                     return response.json();
                 })
                 .then(function(data){
+                    console.log(data);
                     displayWeather(data);
                 });
 
@@ -71,9 +77,28 @@ var getWeather = function (search) {
 };
 
 // trying to pull api content and display
-var displayWeather = function (weatherData) {
+var displayWeather = function (data) {
+    var windSpeed = document.createElement("p");
+    var dailytemp = document.createElement('P');
+    var dailyHumidity = document.createElement('p');
+    var uvIndex = document.createElement('p');
 
-    console.log(weatherData);
+    dailytemp.textContent = "Temp: " + data.current.temp;
+    cityTitleEl.appendChild(dailytemp);
+
+    windSpeed.textContent = "Wind Speed: " + data.current.wind_speed;
+    cityTitleEl.appendChild(windSpeed);
+
+    dailyHumidity.textContent = "Humidity: " + data.current.humidity;
+    cityTitleEl.appendChild(dailyHumidity);
+
+    uvIndex.textContent = "UV Index: " + data.current.uvi;
+    cityTitleEl.appendChild(uvIndex);
+
+    for (let i = 0; i < data.daily.length; i++) {
+        
+        
+    }
 
 
 };
@@ -88,7 +113,6 @@ var saveCityEl = function (InputEl) {
     for (let i = 0; i <= searchedCities.length; i++) {
         $('.search-history').append("<button>" + searchedCities[i] + "</button>");
 
-        return searchedCities[i];
     }
 };
 
