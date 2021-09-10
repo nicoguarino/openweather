@@ -1,4 +1,4 @@
-# # Weater Dashboard
+# # Weather Dashboard
 
 ## Table of Contents
 
