@@ -1,4 +1,4 @@
-# # Workday Scheduler
+# # Weater Dashboard
 
 ## Table of Contents
 
@@ -11,7 +11,7 @@
 
 ## About <a name = "about"></a>
 
-Weather Dashboard is designed to show the consumer the weather forecast for today and for the following 5 days. It saves and displays the last cities searched. 
+Weather Dashboard is designed to show the consumer the weather forecast for today and for the following 5 days. It saves and displays the last cities searched.
 
 ## Getting Started <a name = "getting-started"></a>
 
@@ -20,7 +20,7 @@ Weather Dashboard is designed to show the consumer the weather forecast for toda
 
 ## Code Sample <a name = "code-sample"></a>
 
-![Sample Code](https://github.com/nicoguarino/workday-scheduler/blob/main/assets/images/code_sample.png "Sample Code")
+![Sample Code](https://github.com/nicoguarino/openweather/blob/main/assets/images/sample_code.png "Sample Code")
 
 ### Sample Code
 ```HTML Sample
