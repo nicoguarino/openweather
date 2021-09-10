@@ -13,15 +13,13 @@ function CitySubmitHandler(event) {
 
     var InputEl = userSearchEl.value.trim();
 
-   // if (searchedCities.indexOf(searchedCities) === -1){};
 
-    if (InputEl && searchedCities.indexOf(InputEl) === -1) {
+    if (InputEl &&  searchedCities.indexOf(InputEl) === -1) {
 
         saveCityEl(InputEl);
 
         getWeather(InputEl);
 
-        // userSearchEl.value = "";
         return;
 
     } else {
@@ -29,13 +27,7 @@ function CitySubmitHandler(event) {
     }
 }
 
-// When Searched presented with city name, date, icon, temp, humity, wind speed, uv index
-
-// uv index presents conditions that show favorable, moderate, or severe
-
-// display 5 day weather forecast that shows same displays as daily forecast
-
-// needs to use different api. This one does have uv or future forcast
+//fetch weather apis
 var getWeather = function (search) {
     // format the api url
     var weatherApi = "https://api.openweathermap.org/data/2.5/weather?q="
@@ -71,18 +63,19 @@ var getWeather = function (search) {
                     console.log(data);
                     displayWeather(data);
                 });
-
         });
-
 };
 
 // trying to pull api content and display
 var displayWeather = function (data) {
+    
+    //creating p elements to display data
     var windSpeed = document.createElement("p");
     var dailytemp = document.createElement('P');
     var dailyHumidity = document.createElement('p');
     var uvIndex = document.createElement('p');
 
+    // craeting a div is hold daily forecast data
     var dailyContainer = document.querySelector("#daily-container");
     var dailyForcastData = document.createElement("div");
     dailyForcastData.classList = "";
@@ -90,6 +83,7 @@ var displayWeather = function (data) {
 
    // cityTitleEl.textContent = data.current.weather[0].icon;
 
+    //displaying daily forecast date and appending it to div
     dailytemp.textContent = "Temp: " + data.current.temp + "°F";
     dailyForcastData.appendChild(dailytemp);
 
@@ -102,18 +96,24 @@ var displayWeather = function (data) {
     uvIndex.textContent = "UV Index: " + data.current.uvi;
     dailyForcastData.appendChild(uvIndex);
 
-    for (let i = 1; i < 5; i++) {
+    // for loop is iterating future days of the week
+    for (let i = 1; i < 6; i++) {
+
+        //selecting container for future forecast
         var weeklyContainer = document.querySelector("#display-week");
 
+        //creating divs to hold each days data
         var futureDayContainer = document.createElement("div");
         futureDayContainer.classList = "col-3 weekly-card";
         weeklyContainer.appendChild(futureDayContainer);
 
-        var futuredateEl = document.createElement('P');
+        //creating future days elements
+        var futuredateEl = document.createElement('p');
         var futureDayTemp = document.createElement('p');
         var futureDayWindSpeed = document.createElement('p');
         var futureDayHumidity = document.createElement('p');
 
+        //pulling and appending data for future days
         futuredateEl.textContent = moment.unix(data.daily[i].dt).format("L[:]");
         futureDayContainer.appendChild(futuredateEl);
 
@@ -125,22 +125,27 @@ var displayWeather = function (data) {
 
         futureDayHumidity.textContent = "Humidity: " + data.daily[i].wind_speed;
         futureDayContainer.appendChild(futureDayHumidity);
-
     }
-
-
 };
 
 // can't get inputEl to save to searchedCities array
-var saveCityEl = function (InputEl) {
-  //  localStorage.setItem('searchedCityEl', JSON.stringify(searchedCities.value));
-
-    //searchedCities = JSON.parse(localStorage.getItem('searchCities'));
-    // $('.search-history').html('');
+var saveCityEl = function () {
 
     for (let i = 0; i <= searchedCities.length; i++) {
-        $('.search-history').append("<button>" + searchedCities[i] + "</button>");
 
+        //selecting container for search history
+        var searchHistoryContainer = document.querySelector("#search-history-container");
+
+        var searchButtonDivEl = document.createElement("div");
+        searchHistoryContainer.appendChild(searchButtonDivEl);
+        
+
+        //button based on search history created
+        var searchHistoryBtn = document.createElement("p");
+        searchHistoryBtn.classList = "search-history-btns";
+
+        searchHistoryBtn.textContent = searchedCities[i];
+        searchButtonDivEl.appendChild(searchHistoryBtn);
     }
 };
 
