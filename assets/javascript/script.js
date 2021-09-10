@@ -41,15 +41,15 @@ var getWeather = function (search) {
         })
         .then(function(data) {
 
-            // displaying city Searched
-            cityTitleEl.textContent = data.name + ": " + moment().format("L");
+            // // displaying city Searched
+            // cityTitleEl.textContent = data.name + ": " + moment().format("L");
 
-            // pushing name to array in local storage
-            searchedCities.push(data.name);
+            // // pushing name to array in local storage
+            // searchedCities.push(data.name);
 
-            //setting city searched to local storage
-            localStorage.setItem("searchedCities", JSON.stringify(searchedCities));
-
+            // //setting city searched to local storage
+            // localStorage.setItem("searchedCities", JSON.stringify(searchedCities));
+            displayCity(data);
 
             console.log(searchedCities);
 
@@ -66,9 +66,36 @@ var getWeather = function (search) {
         });
 };
 
+//Displays City Searched and Today's Date
+function displayCity (data) {
+
+    // clear data out of Daily Container
+    document.querySelector("#daily-container").innerHTML = "";
+
+    // grabbing daily container
+    var cityNameContainer = document.querySelector("#daily-container");
+
+    // creating City name Title
+    var cityNameEl = document.createElement("h3");
+
+    // setting class and id for CityNameEl
+    cityNameEl.classList = "sub-titles"
+    cityNameEl.setAttribute("id", "forecast-city");
+    cityNameContainer.appendChild(cityNameEl);
+
+    // displaying city Searched
+    cityNameEl.textContent = data.name + ": " + moment().format("L");
+
+    // pushing name to array in local storage
+    searchedCities.push(data.name);
+
+    //setting city searched to local storage
+    localStorage.setItem("searchedCities", JSON.stringify(searchedCities));
+}
+
 // trying to pull api content and display
 var displayWeather = function (data) {
-    
+
     //creating p elements to display data
     var windSpeed = document.createElement("p");
     var dailytemp = document.createElement('P');
@@ -95,6 +122,8 @@ var displayWeather = function (data) {
 
     uvIndex.textContent = "UV Index: " + data.current.uvi;
     dailyForcastData.appendChild(uvIndex);
+
+    document.querySelector("#display-week").innerHTML = "";
 
     // for loop is iterating future days of the week
     for (let i = 1; i < 6; i++) {
@@ -130,6 +159,7 @@ var displayWeather = function (data) {
 
 // can't get inputEl to save to searchedCities array
 var saveCityEl = function () {
+    document.querySelector("#search-history-container").innerHTML = ""; 
 
     for (let i = 0; i <= searchedCities.length; i++) {
 
